@@ -2,6 +2,7 @@ package pl.oskarpolak.ormtest.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.oskarpolak.ormtest.models.forms.RegisterForm;
 
 import javax.persistence.*;
 
@@ -17,4 +18,10 @@ public class UserModel {
     private String password;
     //@Column(name = "jakasNazwaKolumnyZBazyDanych")
     private int age;
+
+    public UserModel(RegisterForm registerForm){
+        login = registerForm.getLogin();
+        password = registerForm.getPassword();
+        age = registerForm.getAge();
+    }
 }

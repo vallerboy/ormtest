@@ -67,6 +67,13 @@ public class MainController {
             return "register";
         }
 
+        UserService.RegisterStatus registerStatus = userService.register(registerForm);
+        if(registerStatus != UserService.RegisterStatus.OK){
+            model.addAttribute("info", "Login zajęty");
+            return "register";
+        }
 
+        userService.setLogin(true);
+        return "redirect:/";
     }
 }
