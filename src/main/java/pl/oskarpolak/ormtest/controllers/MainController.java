@@ -49,6 +49,8 @@ public class MainController {
             userService.setLogin(true);
             return "redirect:/";
         }
+
+        userService.setBadLoginCounter(userService.getBadLoginCounter() + 1);
         model.addAttribute("info", "Bad login or password");
         return "login";
     }

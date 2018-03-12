@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import pl.oskarpolak.ormtest.models.UserModel;
 import pl.oskarpolak.ormtest.models.forms.RegisterForm;
 import pl.oskarpolak.ormtest.models.repositories.UserRepository;
@@ -26,6 +27,8 @@ public class UserService {
 
     @Getter @Setter
     private boolean isLogin;
+    @Getter @Setter
+    private int badLoginCounter;
 
     @Autowired
     public UserService(UserRepository userRepository) {
