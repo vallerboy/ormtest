@@ -24,7 +24,6 @@ public class LoginHandler implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        System.out.println("Time: " + (httpServletRequest.getSession().getLastAccessedTime() - httpServletRequest.getSession().getCreationTime()));
 
         String requestURI = httpServletRequest.getRequestURI();
         if(userService.getBadLoginCounter() >= 5) {
