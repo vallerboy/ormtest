@@ -18,6 +18,7 @@ public class PostModel {
     @Column(name = "user_id")
     private int userId;
     private String message;
+    private String title;
     @Column(name = "creation_time")
     private LocalDateTime creationTime;
 }
