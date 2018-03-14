@@ -9,24 +9,16 @@
             <title>Dodaj posta</title>
         </head>
 <body>
-<center>
-
-    <h1 th:if="${info != null}" th:text="${info}"></h1>
-    <br/>
-
-    <form th:action="@{/addpost}" method="post" th:object="${postForm}">
-        Tytuł: <input type="text" th:field="*{field}" placeholder="Login">
+    <div style="text-align: center;">
+        <h1 th:if="${info != null}" th:text="${info}"></h1>
         <br/>
-        Hasło: <input type="text" th:name="password" placeholder="Hasło">
-        <br/>
-        <button type="submit">Zaloguj</button>
-        <button type="button" onclick="location.href='/register';" >Rejestracja</button>
-    </form>
-</center>
-</body>
-</html></title>
-</head>
-<body>
-
+        <form style="width: 100%" th:action="@{/addpost}" method="post" th:object="${postForm}">
+            Tytuł: <input maxlength="200" type="text" th:field="*{title}" placeholder="Tytuł">
+            <br/>
+            <textarea type="text" maxlength="500" rows="10" cols="50" th:field="*{message}" placeholder="Treść"></textarea>
+            <br/><br/>
+            <button type="submit">Dodaj post blogerze</button>
+        </form>
+    </div>
 </body>
 </html>
