@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PostRepository extends CrudRepository<PostModel, Integer> {
     List<PostModel> findAllByUserIdOrderByIdDesc(int userId);
+    List<PostModel> findAllByOrderByIdDesc();
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.oskarpolak.ormtest.models.PostModel;
 import pl.oskarpolak.ormtest.models.forms.PostForm;
@@ -40,6 +41,13 @@ public class PostController {
         return "redirect:/";
     }
 
+
+    @GetMapping("/post/{id}")
+    public String onePost(@PathVariable("id") int id,
+                          Model model){
+        model.addAttribute("post", postRepository.findOne(id));
+        return "post";
+    }
 
 
 

@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Logowanie</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body>
 <center>
-
-    <h1 th:if="${info != null}" th:text="${info}"></h1>
+    <div th:if="${info != null}" class="alert alert-danger">
+         <h1 th:text="${info}"></h1>
+    </div>
     <br/>
+    <form style="width: 30%" th:action="@{/login}" method="post">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input  type="text" class="form-control" th:name="login" placeholder="Login">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input type="password" class="form-control" th:name="password" placeholder="Hasło">
+        </div>
 
-    <form th:action="@{/login}" method="post">
-        Login: <input type="text" th:name="login" placeholder="Login">
         <br/>
-        Hasło: <input type="text" th:name="password" placeholder="Hasło">
-        <br/>
-        <button type="submit">Zaloguj</button>
-        <button type="button" onclick="location.href='/register';" >Rejestracja</button>
+
+        <button class="btn btn-success" type="submit">Zaloguj</button>
+        <button class="btn btn-danger" type="button" onclick="location.href='/register';" >Rejestracja</button>
     </form>
 </center>
 </body>
