@@ -4,13 +4,11 @@ package pl.oskarpolak.ormtest.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import pl.oskarpolak.ormtest.models.CommentModel;
 import pl.oskarpolak.ormtest.models.PostModel;
-import pl.oskarpolak.ormtest.models.UserModel;
 import pl.oskarpolak.ormtest.models.forms.PostForm;
+import pl.oskarpolak.ormtest.models.repositories.CommentRepository;
 import pl.oskarpolak.ormtest.models.repositories.PostRepository;
 import pl.oskarpolak.ormtest.models.services.UserService;
 
@@ -19,11 +17,13 @@ public class PostController {
 
     final PostRepository postRepository;
     final UserService userService;
+    final CommentRepository commentRepository;
 
     @Autowired
-    public PostController(PostRepository postRepository, UserService userService) {
+    public PostController(PostRepository postRepository, UserService userService, CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.userService = userService;
+        this.commentRepository = commentRepository;
     }
 
     @GetMapping("/addpost")
@@ -47,7 +47,25 @@ public class PostController {
     public String onePost(@PathVariable("id") int id,
                           Model model){
         model.addAttribute("post", postRepository.findOne(id));
+        model.addAttribute("comments", commentRepository.findByPostIdOrderByIdDesc(id));
+
         return "post";
+    }
+
+    @PostMapping("/comment/{id}")
+    public String oneComment(@RequestParam("comment") String comment,
+                             @PathVariable("id") int id){
+
+        if(comment != null && !comment.isEmpty()){
+            CommentModel commentModel = new CommentModel();
+            commentModel.setMessage(comment);
+            commentModel.setPostId(id);
+            commentModel.setUser(userService.getUser());
+
+            commentRepository.save(commentModel);
+        }
+
+        return "redirect:/post/"+id;
     }
 
 
