@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.oskarpolak.ormtest.models.PostModel;
+import pl.oskarpolak.ormtest.models.UserModel;
 import pl.oskarpolak.ormtest.models.forms.PostForm;
 import pl.oskarpolak.ormtest.models.repositories.PostRepository;
 import pl.oskarpolak.ormtest.models.services.UserService;
