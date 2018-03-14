@@ -30,16 +30,16 @@ public class PostController {
         return "addpost";
     }
 
+    //todo validate form
     @PostMapping("/addpost")
     public String addPost(@ModelAttribute("postForm") PostForm postForm){
-         //todo validate form
         PostModel postModel = new PostModel(postForm);
         postModel.setUserId(userService.getUserId());
-        
+
         postRepository.save(postModel);
         return "redirect:/";
     }
-    //test
+
 
 
 
