@@ -5,7 +5,7 @@
     <title>Strona główna</title>
 </head>
 <body>
-    <p th:each="content : ${notes}">
+    <p th:each="content : ${posts}">
         <strong th:text="${content.getMessage()}"></strong> |
         <small th:text="${content.getCreationTime()}"></small>
     </p>

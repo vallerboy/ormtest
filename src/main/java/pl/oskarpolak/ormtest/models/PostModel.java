@@ -8,10 +8,10 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "note")
+@Table(name = "post")
 @Data
 @NoArgsConstructor
-public class NoteModel {
+public class PostModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

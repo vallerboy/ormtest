@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.oskarpolak.ormtest.models.UserModel;
 import pl.oskarpolak.ormtest.models.forms.RegisterForm;
-import pl.oskarpolak.ormtest.models.repositories.NoteRepository;
+import pl.oskarpolak.ormtest.models.repositories.PostRepository;
 import pl.oskarpolak.ormtest.models.repositories.UserRepository;
 import pl.oskarpolak.ormtest.models.services.UserService;
 
@@ -20,22 +20,22 @@ public class MainController {
     UserRepository userRepository;
 
     final
-    NoteRepository noteRepository;
+    PostRepository postRepository;
 
     final
     UserService userService;
 
 
     @Autowired
-    public MainController(UserRepository userRepository, NoteRepository noteRepository, UserService userService) {
+    public MainController(UserRepository userRepository, PostRepository noteRepository, UserService userService) {
         this.userRepository = userRepository;
-        this.noteRepository = noteRepository;
+        this.postRepository = noteRepository;
         this.userService = userService;
     }
 
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("notes", noteRepository.findAllByUserIdOrderByIdDesc(userService.getUserId()));
+        model.addAttribute("posts", postRepository.findAllByUserIdOrderByIdDesc(userService.getUserId()));
         return "dashboard";
     }
 
