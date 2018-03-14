@@ -9,7 +9,7 @@
       <h1 th:text="${post.getTitle()}"></h1>
       <hr/>
       <p th:text="${post.getMessage()}"></p>
-      Autor: <strong th:text="${post.getId()}"></strong> | <span th:text="${post.getCreationTime()}"/>
+      Autor: <strong th:text="${post.getUser().getLogin()}"></strong> | <span th:text="${post.getCreationTime()}"/>
   </div>
 </body>
 </html>

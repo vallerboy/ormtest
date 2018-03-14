@@ -51,7 +51,7 @@ public class MainController {
         Optional<UserModel> exist = userRepository.findByLoginAndPassword(login, password);
         if(exist.isPresent()){
             userService.setLogin(true);
-            userService.setUserId(exist.get().getId());
+            userService.setUser(exist.get());
             return "redirect:/";
         }
 

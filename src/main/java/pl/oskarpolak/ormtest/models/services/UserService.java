@@ -30,7 +30,7 @@ public class UserService {
     @Getter @Setter
     private int badLoginCounter;
     @Getter @Setter
-    private int userId;
+    private UserModel user;
 
     @Autowired
     public UserService(UserRepository userRepository) {

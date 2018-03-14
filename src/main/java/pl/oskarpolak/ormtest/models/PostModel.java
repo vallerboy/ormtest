@@ -16,8 +16,11 @@ public class PostModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "user_id")
-    private int userId;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserModel user;
+
     private String message;
     private String title;
     @Column(name = "creation_time")

@@ -35,7 +35,7 @@ public class PostController {
     @PostMapping("/addpost")
     public String addPost(@ModelAttribute("postForm") PostForm postForm){
         PostModel postModel = new PostModel(postForm);
-        postModel.setUserId(userService.getUserId());
+        postModel.setUser(userService.getUser());
 
         postRepository.save(postModel);
         return "redirect:/";
