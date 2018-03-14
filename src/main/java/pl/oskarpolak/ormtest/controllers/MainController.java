@@ -80,7 +80,7 @@ public class MainController {
             return "register";
         }
 
-        userService.setLogin(true);
-        return "redirect:/";
+
+        return "redirect:/login";
     }
 }
