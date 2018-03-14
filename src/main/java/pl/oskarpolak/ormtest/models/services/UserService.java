@@ -29,6 +29,8 @@ public class UserService {
     private boolean isLogin;
     @Getter @Setter
     private int badLoginCounter;
+    @Getter @Setter
+    private int userId;
 
     @Autowired
     public UserService(UserRepository userRepository) {

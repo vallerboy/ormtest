@@ -5,10 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.oskarpolak.ormtest.models.UserModel;
 import pl.oskarpolak.ormtest.models.forms.RegisterForm;
 import pl.oskarpolak.ormtest.models.repositories.NoteRepository;
 import pl.oskarpolak.ormtest.models.repositories.UserRepository;
 import pl.oskarpolak.ormtest.models.services.UserService;
+
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -31,8 +34,8 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String index(){
-        
+    public String index(Model model){
+        model.addAttribute("notes", noteRepository.findAllByUserId(userService.getUserId()));
         return "dashboard";
     }
 
@@ -45,9 +48,10 @@ public class MainController {
     public String loginPost(@RequestParam("login") String login,
                             @RequestParam("password") String password,
                             Model model){
-        boolean exist = userRepository.existsByLoginAndPassword(login, password);
-        if(exist){
+        Optional<UserModel> exist = userRepository.findByLoginAndPassword(login, password);
+        if(exist.isPresent()){
             userService.setLogin(true);
+            userService.setUserId(exist.get().getId());
             return "redirect:/";
         }
 
