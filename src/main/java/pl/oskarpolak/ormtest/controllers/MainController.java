@@ -35,7 +35,7 @@ public class MainController {
 
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("notes", noteRepository.findAllByUserId(userService.getUserId()));
+        model.addAttribute("notes", noteRepository.findAllByUserIdOrderByIdDesc(userService.getUserId()));
         return "dashboard";
     }
 

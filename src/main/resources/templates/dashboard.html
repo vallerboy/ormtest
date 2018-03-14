@@ -6,7 +6,9 @@
 </head>
 <body>
     <p th:each="content : ${notes}">
-        <strong th:text="${content.getMessage()}"></strong>
+        <strong th:text="${content.getMessage()}"></strong> |
+        <small th:text="${content.getCreationTime()}"></small>
     </p>
+
 </body>
 </html>
