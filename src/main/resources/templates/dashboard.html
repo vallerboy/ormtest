@@ -16,6 +16,8 @@
 
     <br/>
     <button class="btn btn-primary" type="button" onclick="location.href='/addpost';" >Dodaj nowy post</button>
+     <br/>
+     <strong th:text="'Jesteś: ' + ${user.getUserType()}"></strong>
  </div>
 </body>
 </html>

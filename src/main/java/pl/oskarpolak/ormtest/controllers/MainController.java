@@ -35,6 +35,12 @@ public class MainController {
         this.userService = userService;
     }
 
+    @ModelAttribute
+    public Model startModel(Model model){
+        model.addAttribute("user", userService.getUser());
+        return model;
+    }
+
     @GetMapping("/")
     public String index(Model model){
         model.addAttribute("posts", postRepository.findAllByOrderByIdDesc());

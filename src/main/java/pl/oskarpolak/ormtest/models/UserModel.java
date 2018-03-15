@@ -19,6 +19,10 @@ public class UserModel {
     //@Column(name = "jakasNazwaKolumnyZBazyDanych")
     private int age;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_type")
+    private UserType userType;
+
     public UserModel(RegisterForm registerForm){
         login = registerForm.getLogin();
         password = registerForm.getPassword();
