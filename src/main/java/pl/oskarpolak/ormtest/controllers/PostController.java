@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.oskarpolak.ormtest.models.CommentModel;
 import pl.oskarpolak.ormtest.models.PostModel;
+import pl.oskarpolak.ormtest.models.UserType;
 import pl.oskarpolak.ormtest.models.forms.PostForm;
 import pl.oskarpolak.ormtest.models.repositories.CommentRepository;
 import pl.oskarpolak.ormtest.models.repositories.PostRepository;
@@ -72,5 +73,13 @@ public class PostController {
     }
 
 
+    @GetMapping("/delete/{id}")
+    public String deletePost(@PathVariable("id") int id){
+        if(userService.getUser().getUserType() != UserType.ADMIN){
+            return "redirect:/";
+        }
 
+        postRepository.delete(id);
+        return "redirect:/";
+    }
 }

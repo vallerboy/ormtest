@@ -8,10 +8,12 @@
 <body>
  <div style="text-align: center;">
     <div style="font-size: 20px" class="alert alert-success" th:each="content : ${posts}">
-        <a th:href="${'/post/' + content.getId()}">
+        <a th:onclick="'location.href=\'/post/' + ${content.getId()} + '\''">
                 <strong th:text="${content.getTitle()}"></strong> |
                 <small th:text="${content.getCreationTime()}"></small>
         </a>
+
+        <a th:if="${user.getUserType().toString() == 'ADMIN'}" th:href="'/delete/' + ${content.getId()}">X</a>
     </div>
 
     <br/>
