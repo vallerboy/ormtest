@@ -9,6 +9,7 @@ import pl.oskarpolak.ormtest.models.CommentModel;
 import pl.oskarpolak.ormtest.models.PostModel;
 import pl.oskarpolak.ormtest.models.UserType;
 import pl.oskarpolak.ormtest.models.forms.PostForm;
+import pl.oskarpolak.ormtest.models.repositories.CategoryRepository;
 import pl.oskarpolak.ormtest.models.repositories.CommentRepository;
 import pl.oskarpolak.ormtest.models.repositories.PostRepository;
 import pl.oskarpolak.ormtest.models.services.UserService;
@@ -19,12 +20,14 @@ public class PostController {
     final PostRepository postRepository;
     final UserService userService;
     final CommentRepository commentRepository;
+    final CategoryRepository categoryRepository;
 
     @Autowired
-    public PostController(PostRepository postRepository, UserService userService, CommentRepository commentRepository) {
+    public PostController(PostRepository postRepository, UserService userService, CommentRepository commentRepository, CategoryRepository categoryRepository) {
         this.postRepository = postRepository;
         this.userService = userService;
         this.commentRepository = commentRepository;
+        this.categoryRepository = categoryRepository;
     }
 
 
@@ -37,6 +40,8 @@ public class PostController {
     @GetMapping("/addpost")
     public String addPost(Model model){
         model.addAttribute("postForm", new PostForm());
+        model.addAttribute("categories", categoryRepository.findAll());
+
         return "addpost";
     }
 
@@ -45,6 +50,7 @@ public class PostController {
     public String addPost(@ModelAttribute("postForm") PostForm postForm){
         PostModel postModel = new PostModel(postForm);
         postModel.setUser(userService.getUser());
+        postModel.setCategory(categoryRepository.findByName(postForm.getCategory()));
 
         postRepository.save(postModel);
         return "redirect:/";

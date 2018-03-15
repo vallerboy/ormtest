@@ -16,6 +16,11 @@
             Tytuł: <input maxlength="200" type="text" th:field="*{title}" placeholder="Tytuł">
             <br/>
             <textarea type="text" maxlength="500" rows="10" cols="50" th:field="*{message}" placeholder="Treść"></textarea>
+
+            <select th:field="*{category}">
+                <option th:text="${category.getName()}" th:value="${category.getName()}" th:each="category : ${categories}"></option>
+            </select>
+
             <br/><br/>
             <button type="submit">Dodaj post blogerze</button>
         </form>
