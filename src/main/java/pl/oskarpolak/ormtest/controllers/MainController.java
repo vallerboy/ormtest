@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.oskarpolak.ormtest.models.UserModel;
+import pl.oskarpolak.ormtest.models.Utils;
 import pl.oskarpolak.ormtest.models.forms.RegisterForm;
 import pl.oskarpolak.ormtest.models.repositories.CategoryRepository;
 import pl.oskarpolak.ormtest.models.repositories.PostRepository;
@@ -69,7 +70,7 @@ public class MainController {
     public String loginPost(@RequestParam("login") String login,
                             @RequestParam("password") String password,
                             Model model){
-        Optional<UserModel> exist = userRepository.findByLoginAndPassword(login, password);
+        Optional<UserModel> exist = userRepository.findByLoginAndPassword(login, Utils.hash256SHA(password));
         if(exist.isPresent()){
             userService.setLogin(true);
             userService.setUser(exist.get());
