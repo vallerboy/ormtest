@@ -27,6 +27,13 @@ public class PostController {
         this.commentRepository = commentRepository;
     }
 
+
+    @ModelAttribute
+    public Model startModel(Model model){
+        model.addAttribute("user", userService.getUser());
+        return model;
+    }
+
     @GetMapping("/addpost")
     public String addPost(Model model){
         model.addAttribute("postForm", new PostForm());
@@ -81,5 +88,16 @@ public class PostController {
 
         postRepository.delete(id);
         return "redirect:/";
+    }
+
+    @GetMapping("/delete/{postId}/{commentId}")
+    public String deletePost(@PathVariable("postId") int postId,
+                             @PathVariable("commentId") int commentId){
+        if(userService.getUser().getUserType() != UserType.ADMIN){
+            return "redirect:/post/" + postId;
+        }
+
+        commentRepository.delete(commentId);
+        return "redirect:/post/" + postId;
     }
 }

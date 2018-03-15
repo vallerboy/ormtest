@@ -18,6 +18,8 @@
   <div>
       <span th:each="comment : ${post.getCommentModels()}">
           <b th:text="${comment.getUser().getLogin() + '(' + #dates.format(comment.getDateAsJavaUtil(), 'dd-MM HH:mm') + ')'}"></b> : <span th:text="${comment.getMessage()}"></span>
+          <a th:if="${user.getUserType().toString() == 'ADMIN'}" th:href="'/delete/' + ${post.getId()} + '/' + ${comment.getId()}">X</a>
+
           <br/>
       </span>
   </div>
