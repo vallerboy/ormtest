@@ -40,6 +40,7 @@ public class MainController {
     @ModelAttribute
     public Model startModel(Model model){
         model.addAttribute("user", userService.getUser());
+        model.addAttribute("categories", categoryRepository.findAll());
         return model;
     }
 
@@ -51,7 +52,7 @@ public class MainController {
         return "dashboard";
     }
 
-    @GetMapping("/{category}")
+    @GetMapping("/category/{category}")
     public String index(Model model,
                         @PathVariable("category") String category){
         model.addAttribute("posts", categoryRepository.findByName(category).getPostList());

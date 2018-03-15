@@ -7,6 +7,11 @@
 </head>
 <body>
  <div style="text-align: center;">
+
+     <span th:each="category : ${categories}">
+         <a th:href="'/category/' + ${category.getName()}" th:text="${category.getName()}"></a>
+     </span>
+
     <div style="font-size: 20px" class="alert alert-success" th:each="content : ${posts}">
         <a th:onclick="'location.href=\'/post/' + ${content.getId()} + '\''">
                 <strong th:text="${content.getTitle()}"></strong> |
