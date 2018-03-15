@@ -7,6 +7,7 @@ import pl.oskarpolak.ormtest.models.forms.PostForm;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -25,6 +26,9 @@ public class PostModel {
     private String title;
     @Column(name = "creation_time")
     private LocalDateTime creationTime;
+
+    @OneToMany(mappedBy = "post")
+    List<CommentModel> commentModels;
 
     public PostModel(PostForm postForm){
         this.message = postForm.getMessage();

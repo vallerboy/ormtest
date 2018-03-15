@@ -22,8 +22,10 @@ public class CommentModel {
     @JoinColumn(name = "user_id")
     private UserModel user;
 
-    @Column(name = "post_id")
-    private int postId;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private PostModel post;
+
     private String message;
     private LocalDateTime creationTime;
 

@@ -47,7 +47,6 @@ public class PostController {
     public String onePost(@PathVariable("id") int id,
                           Model model){
         model.addAttribute("post", postRepository.findOne(id));
-        model.addAttribute("comments", commentRepository.findByPostIdOrderByIdDesc(id));
 
         return "post";
     }
@@ -59,7 +58,11 @@ public class PostController {
         if(comment != null && !comment.isEmpty()){
             CommentModel commentModel = new CommentModel();
             commentModel.setMessage(comment);
-            commentModel.setPostId(id);
+
+            PostModel postModel = new PostModel();
+            postModel.setId(id);
+
+            commentModel.setPost(postModel);
             commentModel.setUser(userService.getUser());
 
             commentRepository.save(commentModel);

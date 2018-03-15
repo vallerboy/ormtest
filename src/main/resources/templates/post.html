@@ -16,7 +16,7 @@
   <br/>
 
   <div>
-      <span th:each="comment : ${comments}">
+      <span th:each="comment : ${post.getCommentModels()}">
           <b th:text="${comment.getUser().getLogin() + '(' + #dates.format(comment.getDateAsJavaUtil(), 'dd-MM HH:mm') + ')'}"></b> : <span th:text="${comment.getMessage()}"></span>
           <br/>
       </span>
