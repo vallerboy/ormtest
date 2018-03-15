@@ -46,7 +46,7 @@ public class UserService {
 
         UserModel newUserModel = new UserModel(registerForm);
         newUserModel.setUserType(UserType.USER);
-        
+
         userRepository.save(newUserModel);
         return RegisterStatus.OK;
     }

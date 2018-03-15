@@ -2,6 +2,7 @@ package pl.oskarpolak.ormtest.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpRequestHandler;
@@ -40,6 +41,8 @@ public class MainController {
         model.addAttribute("user", userService.getUser());
         return model;
     }
+
+
 
     @GetMapping("/")
     public String index(Model model){
