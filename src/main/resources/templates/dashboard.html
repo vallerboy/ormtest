@@ -11,6 +11,7 @@
         <a th:onclick="'location.href=\'/post/' + ${content.getId()} + '\''">
                 <strong th:text="${content.getTitle()}"></strong> |
                 <small th:text="${content.getCreationTime()}"></small>
+                <p><small th:text="${content.getCategory().getName()}"></small></p>
         </a>
 
         <a th:if="${user.getUserType().toString() == 'ADMIN'}" th:href="'/delete/' + ${content.getId()}">X</a>

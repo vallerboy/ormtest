@@ -2,13 +2,12 @@ package pl.oskarpolak.ormtest.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 import pl.oskarpolak.ormtest.models.UserModel;
 import pl.oskarpolak.ormtest.models.forms.RegisterForm;
+import pl.oskarpolak.ormtest.models.repositories.CategoryRepository;
 import pl.oskarpolak.ormtest.models.repositories.PostRepository;
 import pl.oskarpolak.ormtest.models.repositories.UserRepository;
 import pl.oskarpolak.ormtest.models.services.UserService;
@@ -28,12 +27,14 @@ public class MainController {
     final
     UserService userService;
 
+    final CategoryRepository categoryRepository;
 
     @Autowired
-    public MainController(UserRepository userRepository, PostRepository noteRepository, UserService userService) {
+    public MainController(UserRepository userRepository, PostRepository noteRepository, UserService userService, CategoryRepository categoryRepository) {
         this.userRepository = userRepository;
         this.postRepository = noteRepository;
         this.userService = userService;
+        this.categoryRepository = categoryRepository;
     }
 
     @ModelAttribute
@@ -47,6 +48,14 @@ public class MainController {
     @GetMapping("/")
     public String index(Model model){
         model.addAttribute("posts", postRepository.findAllByOrderByIdDesc());
+        return "dashboard";
+    }
+
+    @GetMapping("/{category}")
+    public String index(Model model,
+                        @PathVariable("category") String category){
+        model.addAttribute("posts", categoryRepository.findByName(category).getPostList());
+
         return "dashboard";
     }
 

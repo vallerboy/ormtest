@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,4 +16,7 @@ public class CategoryModel {
     @GeneratedValue
     private int id;
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    List<PostModel> postList;
 }
