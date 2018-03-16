@@ -8,9 +8,9 @@
     <div style="text-align: center;">
         <div>
             <h1>Wrzuć avatar</h1>
-            
+
             <form method="post" th:action="@{/user/avatar}" enctype="multipart/form-data">
-                <input type="file" th:name="avatar">
+                <input type="file" th:name="avatar" value="Wybierz plik">
                 <button type="submit">Wyślij</button>
             </form>
         </div>
