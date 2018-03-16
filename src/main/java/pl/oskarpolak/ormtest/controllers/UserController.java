@@ -13,6 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.oskarpolak.ormtest.models.services.UploadService;
 import pl.oskarpolak.ormtest.models.services.UserService;
 
+import java.io.IOException;
+
 @Controller
 public class UserController {
 
@@ -44,11 +46,18 @@ public class UserController {
             return "redirect:/profile";
         }
 
+        try {
+            uploadService.upload(file.getBytes(),
+                    userService.getUser().getLogin());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return "redirect:/profile";
     }
 
     private boolean isValidContentType(String content){
+        content = content.toUpperCase();
         return content.contains("JPEG") || content.contains("PNG") || content.contains("JPG");
     }
 }
