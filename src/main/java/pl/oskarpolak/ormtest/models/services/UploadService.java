@@ -27,7 +27,7 @@ public class UploadService {
             ftpClient.login(LOGIN, PASSWORD);
             ftpClient.enterLocalPassiveMode();
 
-            uploaded = ftpClient.storeUniqueFile(name, new ByteArrayInputStream(data));
+            uploaded = ftpClient.storeFile(name, new ByteArrayInputStream(data));
             ftpClient.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
