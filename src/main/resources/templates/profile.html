@@ -13,6 +13,10 @@
                 <input type="file" th:name="avatar" value="Wybierz plik">
                 <button type="submit">Wyślij</button>
             </form>
+
+            <br/>
+
+            <img height="200" width="200" th:src="${@environment.getProperty('url.to.avatars') + user.getLogin()}"/>
         </div>
     </div>
 </body>

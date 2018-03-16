@@ -13,6 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.oskarpolak.ormtest.models.services.UploadService;
 import pl.oskarpolak.ormtest.models.services.UserService;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 @Controller
@@ -45,10 +48,8 @@ public class UserController {
             model.addFlashAttribute("info", "Nie przyjmujemy takich plików");
             return "redirect:/profile";
         }
-
         try {
-            uploadService.upload(file.getBytes(),
-                    userService.getUser().getLogin());
+            uploadService.upload(file.getBytes(), userService.getUser().getLogin());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,7 +59,7 @@ public class UserController {
 
     private boolean isValidContentType(String content){
         content = content.toUpperCase();
-        return content.contains("JPEG") || content.contains("PNG") || content.contains("JPG");
+        return content.contains("JPEG") || content.contains("JPG");
     }
 }
 

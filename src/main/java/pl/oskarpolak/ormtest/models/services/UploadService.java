@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @Service
 public class UploadService {
@@ -26,7 +27,7 @@ public class UploadService {
             ftpClient.login(LOGIN, PASSWORD);
             ftpClient.enterLocalPassiveMode();
 
-            uploaded = ftpClient.storeFile(name, new ByteArrayInputStream(data));
+            uploaded = ftpClient.storeUniqueFile(name, new ByteArrayInputStream(data));
             ftpClient.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
