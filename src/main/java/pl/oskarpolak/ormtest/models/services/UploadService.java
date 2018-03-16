@@ -1,5 +1,6 @@
 package pl.oskarpolak.ormtest.models.services;
 
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,8 @@ public class UploadService {
             ftpClient.connect(IP, PORT);
             ftpClient.login(LOGIN, PASSWORD);
             ftpClient.enterLocalPassiveMode();
+
+            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 
             uploaded = ftpClient.storeFile(name, new ByteArrayInputStream(data));
             ftpClient.disconnect();

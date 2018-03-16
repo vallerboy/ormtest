@@ -35,6 +35,8 @@ public class PostModel {
     @JoinColumn(name = "category_id")
     CategoryModel category;
 
+    private int rating;
+
     public PostModel(PostForm postForm){
         this.message = postForm.getMessage();
         this.title = postForm.getTitle();

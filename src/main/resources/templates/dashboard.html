@@ -17,6 +17,8 @@
                 <strong th:text="${content.getTitle()}"></strong> |
                 <small th:text="${content.getCreationTime()}"></small>
                 <p><small th:text="${content.getCategory().getName()}"></small></p>
+
+             <a th:href="'/rating/add/' + ${content.getId()}" >Lubię to :)</a> | <b th:text="${content.getRating()}"></b> |  <a th:href="'/rating/reduce/' + ${content.getId()}">Nie lubię :(</a>
         </a>
 
         <a th:if="${user.getUserType().toString() == 'ADMIN'}" th:href="'/delete/' + ${content.getId()}">X</a>
