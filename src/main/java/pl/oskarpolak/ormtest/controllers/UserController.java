@@ -40,7 +40,8 @@ public class UserController {
             model.addFlashAttribute("info", "Nie przyjmujemy takich plików");
             return "redirect:/profile";
         }
-        
+
+
         return "redirect:/profile";
     }
 
