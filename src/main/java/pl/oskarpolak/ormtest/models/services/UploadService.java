@@ -2,6 +2,7 @@ package pl.oskarpolak.ormtest.models.services;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
@@ -21,8 +22,8 @@ public class UploadService {
         ftpClient = new FTPClient();
     }
 
-    public boolean upload(byte[] data, String name){
-        boolean uploaded = false;
+    @Async
+    public void upload(byte[] data, String name){
         try {
             ftpClient.connect(IP, PORT);
             ftpClient.login(LOGIN, PASSWORD);
@@ -30,12 +31,11 @@ public class UploadService {
 
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 
-            uploaded = ftpClient.storeFile(name, new ByteArrayInputStream(data));
+            ftpClient.storeFile(name, new ByteArrayInputStream(data));
             ftpClient.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return uploaded;
     }
 }
