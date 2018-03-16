@@ -10,16 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.oskarpolak.ormtest.models.services.UploadService;
 import pl.oskarpolak.ormtest.models.services.UserService;
 
 @Controller
 public class UserController {
 
     final UserService userService;
+    final UploadService uploadService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UploadService uploadService) {
         this.userService = userService;
+        this.uploadService = uploadService;
     }
 
     @ModelAttribute
