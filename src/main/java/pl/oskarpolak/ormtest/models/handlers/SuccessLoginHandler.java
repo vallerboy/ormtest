@@ -27,10 +27,9 @@ public class SuccessLoginHandler implements AuthenticationSuccessHandler {
 
     @Override
         public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-            response.setStatus(HttpServletResponse.SC_OK);
-
+           // response.setStatus(HttpServletResponse.SC_OK);
             userService.setLogin(true);
             userService.setUser(repository.findByLogin(authentication.getName()));
-            System.out.println("Login: " + SecurityContextHolder.getContext().getAuthentication().getName());
+            response.sendRedirect("/");
         }
 }
