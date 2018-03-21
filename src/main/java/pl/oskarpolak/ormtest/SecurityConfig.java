@@ -9,16 +9,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import pl.oskarpolak.ormtest.models.UserDetails;
+import pl.oskarpolak.ormtest.models.handlers.SuccessLoginHandler;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     final UserDetails userDetails;
+    final SuccessLoginHandler successLoginHandler;
 
     @Autowired
-    public SecurityConfig(UserDetails userDetails) {
+    public SecurityConfig(UserDetails userDetails, SuccessLoginHandler successLoginHandler) {
         this.userDetails = userDetails;
+        this.successLoginHandler = successLoginHandler;
     }
 
     @Override
@@ -31,7 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .usernameParameter("login")
-                .passwordParameter("password");
+                .passwordParameter("password")
+                .successHandler(successLoginHandler);
                // .loginPage("/login");
     }
 
