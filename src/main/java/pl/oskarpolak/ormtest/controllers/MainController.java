@@ -66,21 +66,21 @@ public class MainController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String loginPost(@RequestParam("login") String login,
-                            @RequestParam("password") String password,
-                            Model model){
-        Optional<UserModel> exist = userRepository.findByLoginAndPassword(login, Utils.hash256SHA(password));
-        if(exist.isPresent()){
-            userService.setLogin(true);
-            userService.setUser(exist.get());
-            return "redirect:/";
-        }
-
-        userService.setBadLoginCounter(userService.getBadLoginCounter() + 1);
-        model.addAttribute("info", "Bad login or password");
-        return "login";
-    }
+//    @PostMapping("/login")
+//    public String loginPost(@RequestParam("login") String login,
+//                            @RequestParam("password") String password,
+//                            Model model){
+//        Optional<UserModel> exist = userRepository.findByLoginAndPassword(login, Utils.hash256SHA(password));
+//        if(exist.isPresent()){
+//            userService.setLogin(true);
+//            userService.setUser(exist.get());
+//            return "redirect:/";
+//        }
+//
+//        userService.setBadLoginCounter(userService.getBadLoginCounter() + 1);
+//        model.addAttribute("info", "Bad login or password");
+//        return "login";
+//    }
 
     @GetMapping("/register")
     public String register(Model model) {
