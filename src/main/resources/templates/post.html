@@ -1,35 +1,100 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${post.getTitle()}"></title>
-</head>
-<body>
-  <div style="text-align: center;">
-      <h1 th:text="${post.getTitle()}"></h1>
-      <hr/>
-      <p th:text="${post.getMessage()}"></p>
-      Autor: <strong th:text="${post.getUser().getLogin()}"></strong> | <span th:text="${post.getCreationTime()}"/>
-  </div>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<title th:text="${post.getTitle()}"></title>
+		<link th:href="@{/css/style.css}" rel='stylesheet' type='text/css' />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" type="image/x-icon" href="/images/fav-icon.png" />
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
-  <br/>
-  <br/>
+		<!----webfonts---->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <!----//End-dropdown--->
+	</head>
+	<body>
+		<!---start-wrap---->
+			<!---start-header---->
+			<div class="header">
+				<div class="wrap">
+				<div class="logo">
+					<a href="index.html"><img src="/images/logo.png" title="pinbal" /></a>
+				</div>
+				<div class="top-searchbar">
+					<form>
+						<input type="text" /><input type="submit" value="" />
+					</form>
+				</div>
+				<div class="userinfo">
+					<div class="user">
+						<ul>
+							<li><a href="#"><img src="/images/user-pic.png" title="user-name" /><span th:text="${user.getLogin()}"></span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clear"> </div>
+			</div>
+		</div>
+		<!---//End-header---->
+		<!---start-content---->
+		<div class="content">
+			<div class="wrap">
+			<div class="single-page">
+							<div class="single-page-artical">
+								<div class="artical-content">
+									<h3><a href="#" th:text="${post.getTitle()}"></a></h3>
+									<p th:text="${post.getMessage()}"></p>
+								    </div>
+								    <div class="artical-links">
+		  						 	<ul>
+		  						 		<li><a href="#"><img src="/images/blog-icon2.png" title="Admin"><span th:text="${'Napisane przez: ' + post.getUser().getLogin()}"></span></a></li>
+		  						 	</ul>
+		  						 </div>
+		  						 <div class="share-artical">
+		  						 </div>
+		  						 <div class="clear"> </div>
+							</div>
+							<!---start-comments-section--->
+							<div class="comment-section">
+				<div class="grids_of_2">
+					<h2 th:if="${!post.getCommentModels().isEmpty()}">Komentarze</h2>
+					<div class="grid1_of_2" th:each="comment : ${post.getCommentModels()}">
+						<div class="grid_img">
 
-  <div>
-      <span th:each="comment : ${post.getCommentModels()}">
-          <b th:text="${comment.getUser().getLogin() + '(' + #dates.format(comment.getDateAsJavaUtil(), 'dd-MM HH:mm') + ')'}"></b> : <span th:text="${comment.getMessage()}"></span>
-          <a th:if="${user.getUserType().toString() == 'ADMIN'}" th:href="'/delete/' + ${post.getId()} + '/' + ${comment.getId()}">X</a>
+						</div>
+						<div class="grid_text">
+							<h4 class="style1 list"><a href="#" th:text="${comment.getUser().getLogin()}"></a></h4>
+							<h3 class="style" th:text="${#dates.format(comment.getDateAsJavaUtil(), 'dd-MM HH:mm')}"></h3>
+							<p class="para top" th:text="${comment.getMessage()}"></p>
+						</div>
+						<div class="clear"></div>
+						<hr/>
+					</div>
 
-          <br/>
-      </span>
-  </div>
-
-  <br/>
-
-  <form th:action="${'/comment/' + post.getId()}" method="post">
-          <input type="text" th:name="comment" placeholder="Komentarz">  <input type="submit" value="Wyślij">
-  </form>
-
-
-</body>
+						<div class="artical-commentbox">
+						 	<h2>Zostaw komenatrz</h2>
+				  			<div class="table-form">
+								<form th:action="${'/comment/' + post.getId()}" method="post" name="post_comment">
+									<div>
+										<label>Twój komentarz<span>*</span></label>
+										<textarea th:name="comment"> </textarea>
+									</div>
+									<input type="submit" value="Wyślij">
+								</form>
+							</div>
+							<div class="clear"> </div>
+				  		</div>			
+					</div>
+			</div>
+							<!---//End-comments-section--->
+						</div>
+						 </div>
+		</div>
+		<!----start-footer--->
+		<div class="footer">
+			<p>AkademiaKodu <a href="http://akademiakodu.pl/">Q&A</a></p>
+		</div>
+		<!----//End-footer--->
+		<!---//End-wrap---->
+	</body>
 </html>
+

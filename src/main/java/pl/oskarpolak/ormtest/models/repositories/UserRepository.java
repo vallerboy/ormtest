@@ -13,5 +13,6 @@ public interface UserRepository extends CrudRepository<UserModel, Integer> {
     Optional<UserModel> findByLoginAndPassword(String login, String password);
     boolean existsByLoginAndPassword(String login, String password);
     boolean existsByLogin(String login);
+    UserModel findByLogin(String login);
 
 }

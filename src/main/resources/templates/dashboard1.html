@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Strona główna</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+ <div style="text-align: center;">
+    <div style="font-size: 20px" class="alert alert-success" th:each="content : ${posts}">
+        <a th:onclick="'location.href=\'/post/' + ${content.getId()} + '\''">
+                <strong th:text="${content.getTitle()}"></strong> |
+                <small th:text="${content.getCreationTime()}"></small>
+        </a>
+
+        <a th:if="${user.getUserType().toString() == 'ADMIN'}" th:href="'/delete/' + ${content.getId()}">X</a>
+    </div>
+
+    <br/>
+    <button class="btn btn-primary" type="button" onclick="location.href='/addpost';" >Dodaj nowy post</button>
+     <br/>
+     <strong th:text="'Jesteś: ' + ${user.getUserType()}"></strong>
+ </div>
+</body>
+</html>

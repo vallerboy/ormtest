@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.getTitle()}"></title>
+</head>
+<body>
+  <div style="text-align: center;">
+      <h1 th:text="${post.getTitle()}"></h1>
+      <hr/>
+      <p th:text="${post.getMessage()}"></p>
+      Autor: <strong th:text="${post.getUser().getLogin()}"></strong> | <span th:text="${post.getCreationTime()}"/>
+  </div>
+
+  <br/>
+  <br/>
+
+  <div>
+      <span th:each="comment : ${post.getCommentModels()}">
+          <b th:text="${comment.getUser().getLogin() + '(' + #dates.format(comment.getDateAsJavaUtil(), 'dd-MM HH:mm') + ')'}"></b> : <span th:text="${comment.getMessage()}"></span>
+          <a th:if="${user.getUserType().toString() == 'ADMIN'}" th:href="'/delete/' + ${post.getId()} + '/' + ${comment.getId()}">X</a>
+
+          <br/>
+      </span>
+  </div>
+
+  <br/>
+
+  <form th:action="${'/comment/' + post.getId()}" method="post">
+          <input type="text" th:name="comment" placeholder="Komentarz">  <input type="submit" value="Wyślij">
+  </form>
+
+
+</body>
+</html>
