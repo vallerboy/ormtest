@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.oskarpolak.ormtest.models.UserModel;
+import pl.oskarpolak.ormtest.models.Utils;
 import pl.oskarpolak.ormtest.models.forms.RegisterForm;
+import pl.oskarpolak.ormtest.models.repositories.CategoryRepository;
 import pl.oskarpolak.ormtest.models.repositories.PostRepository;
 import pl.oskarpolak.ormtest.models.repositories.UserRepository;
 import pl.oskarpolak.ormtest.models.services.UserService;
@@ -26,17 +28,20 @@ public class MainController {
     final
     UserService userService;
 
+    final CategoryRepository categoryRepository;
 
     @Autowired
-    public MainController(UserRepository userRepository, PostRepository noteRepository, UserService userService) {
+    public MainController(UserRepository userRepository, PostRepository noteRepository, UserService userService, CategoryRepository categoryRepository) {
         this.userRepository = userRepository;
         this.postRepository = noteRepository;
         this.userService = userService;
+        this.categoryRepository = categoryRepository;
     }
 
     @ModelAttribute
     public Model startModel(Model model){
         model.addAttribute("user", userService.getUser());
+        model.addAttribute("categories", categoryRepository.findAll());
         return model;
     }
 
@@ -45,6 +50,14 @@ public class MainController {
     @GetMapping("/")
     public String index(Model model){
         model.addAttribute("posts", postRepository.findAllByOrderByIdDesc());
+        return "dashboard";
+    }
+
+    @GetMapping("/category/{category}")
+    public String index(Model model,
+                        @PathVariable("category") String category){
+        model.addAttribute("posts", categoryRepository.findByName(category).getPostList());
+
         return "dashboard";
     }
 
@@ -57,7 +70,7 @@ public class MainController {
     public String loginPost(@RequestParam("login") String login,
                             @RequestParam("password") String password,
                             Model model){
-        Optional<UserModel> exist = userRepository.findByLoginAndPassword(login, password);
+        Optional<UserModel> exist = userRepository.findByLoginAndPassword(login, Utils.hash256SHA(password));
         if(exist.isPresent()){
             userService.setLogin(true);
             userService.setUser(exist.get());

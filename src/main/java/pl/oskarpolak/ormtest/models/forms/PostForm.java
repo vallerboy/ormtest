@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 public class PostForm {
     private String title;
     private String message;
+    private String category;
 }

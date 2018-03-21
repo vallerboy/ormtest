@@ -24,11 +24,18 @@ public class PostModel {
 
     private String message;
     private String title;
+
     @Column(name = "creation_time")
     private LocalDateTime creationTime;
 
     @OneToMany(mappedBy = "post")
     List<CommentModel> commentModels;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    CategoryModel category;
+
+    private int rating;
 
     public PostModel(PostForm postForm){
         this.message = postForm.getMessage();

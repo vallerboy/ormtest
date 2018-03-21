@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.oskarpolak.ormtest.models.UserModel;
 import pl.oskarpolak.ormtest.models.UserType;
+import pl.oskarpolak.ormtest.models.Utils;
 import pl.oskarpolak.ormtest.models.forms.RegisterForm;
 import pl.oskarpolak.ormtest.models.repositories.UserRepository;
 
@@ -44,10 +45,14 @@ public class UserService {
             return RegisterStatus.BUSY_LOGIN;
         }
 
+        registerForm.setPassword(Utils.hash256SHA(registerForm.getPassword()));
+
         UserModel newUserModel = new UserModel(registerForm);
         newUserModel.setUserType(UserType.USER);
 
         userRepository.save(newUserModel);
         return RegisterStatus.OK;
     }
+
+
 }

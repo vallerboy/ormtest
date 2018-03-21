@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil</title>
+</head>
+<body>
+    <div style="text-align: center;">
+        <div>
+            <h1>Wrzuć avatar</h1>
+            <h1 th:if="${info != null}" th:text="${info}"></h1>
+            <form method="post" th:action="@{/user/avatar}" enctype="multipart/form-data">
+                <input type="file" th:name="avatar" value="Wybierz plik">
+                <button type="submit">Wyślij</button>
+            </form>
+
+            <br/>
+
+            <img height="200" width="200" th:src="${@environment.getProperty('url.to.avatars') + user.getLogin()}"/>
+        </div>
+    </div>
+</body>
+</html>
